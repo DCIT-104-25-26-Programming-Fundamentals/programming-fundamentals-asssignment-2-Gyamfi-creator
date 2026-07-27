@@ -42,3 +42,71 @@
 #include <iostream>
 using namespace std;
 
+// Function to calculate the total
+int findTotal(int values[], int size) {
+  int total = 0;
+
+  for (int i = 0; i < size; i++) {
+      total += values[i];
+  }
+
+  return total;
+}
+
+// Function to calculate the average
+double findAverage(int values[], int size) {
+  return (double)findTotal(values, size) / size;
+}
+
+// Function to find the largest value
+int findLargest(int values[], int size) {
+  int largest = values[0];
+
+  for (int i = 1; i < size; i++) {
+      if (values[i] > largest) {
+          largest = values[i];
+      }
+  }
+
+  return largest;
+}
+
+// Function to find the smallest value
+int findSmallest(int values[], int size) {
+  int smallest = values[0];
+
+  for (int i = 1; i < size; i++) {
+      if (values[i] < smallest) {
+          smallest = values[i];
+      }
+  }
+
+  return smallest;
+}
+
+int main() {
+  int count;
+
+  cout << "How many numbers? ";
+  cin >> count;
+
+  if (count <= 0) {
+      cout << "Error: Number of values must be greater than 0." << endl;
+      return 0;
+  }
+
+  int numbers[count];
+
+  for (int i = 0; i < count; i++) {
+      cout << "Enter number " << i + 1 << ": ";
+      cin >> numbers[i];
+  }
+
+  cout << "\nResults:" << endl;
+  cout << "Sum:     " << findTotal(numbers, count) << endl;
+  cout << "Average: " << findAverage(numbers, count) << endl;
+  cout << "Maximum: " << findLargest(numbers, count) << endl;
+  cout << "Minimum: " << findSmallest(numbers, count) << endl;
+
+  return 0;
+}

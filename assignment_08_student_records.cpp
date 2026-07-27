@@ -83,3 +83,157 @@
 #include <iomanip>
 using namespace std;
 
+// Structure to store student information
+struct Student {
+    string name;
+    int id;
+    vector<double> scores;
+};
+
+// Function to calculate average score
+double calculateAverage(const Student& learner) {
+
+    double total = 0;
+
+    for (int i = 0; i < learner.scores.size(); i++) {
+        total += learner.scores[i];
+    }
+
+    if (learner.scores.size() == 0) {
+        return 0;
+    }
+
+    return total / learner.scores.size();
+}
+
+// Function to add a student
+void addStudent(vector<Student>& records) {
+
+    Student learner;
+    int numberOfScores;
+
+    cin.ignore();
+
+    cout << "Student name: ";
+    getline(cin, learner.name);
+
+    cout << "Student ID: ";
+    cin >> learner.id;
+
+    cout << "How many scores? ";
+    cin >> numberOfScores;
+
+    for (int i = 0; i < numberOfScores; i++) {
+        double mark;
+        cout << "Enter score " << i + 1 << ": ";
+        cin >> mark;
+        learner.scores.push_back(mark);
+    }
+
+    records.push_back(learner);
+
+    cout << "Student \"" << learner.name << "\" added successfully." << endl;
+}
+
+// Function to display all students
+void displayStudents(const vector<Student>& records) {
+
+    if (records.empty()) {
+        cout << "No student records available." << endl;
+        return;
+    }
+
+    cout << fixed << setprecision(2);
+
+    cout << "\nStudent Records\n";
+
+for (int i = 0; i < records.size(); i++) {
+
+    cout << "\nName: " << records[i].name << endl;
+    cout << "ID: " << records[i].id << endl;
+
+    cout << "Scores: ";
+
+    for (int j = 0; j < records[i].scores.size(); j++) {
+        cout << records[i].scores[j] << " ";
+    }
+
+    cout << endl;
+    cout << "Average Score: " << calculateAverage(records[i]) << endl;
+}
+}
+
+// Function to calculate average for one student
+void findAverage(const vector<Student>& records) {
+
+    if (records.empty()) {
+        cout << "No student records available." << endl;
+        return;
+    }
+
+    int searchID;
+
+    cout << "Enter student ID: ";
+    cin >> searchID;
+
+for (int i = 0; i < records.size(); i++) {
+
+    if (records[i].id == searchID) {
+
+        cout << fixed << setprecision(2);
+
+        cout << records[i].name
+              << "'s average score: "
+              << calculateAverage(records[i])
+              << endl;
+
+        return;
+    }
+}
+
+    cout << "Student ID not found." << endl;
+}
+
+int main() {
+
+vector<Student> records;
+int choice;
+
+do {
+
+    cout << "\n================================" << endl;
+    cout << "   STUDENT RECORD SYSTEM MENU" << endl;
+    cout << "================================" << endl;
+    cout << "1. Add student" << endl;
+    cout << "2. Display all students" << endl;
+    cout << "3. Calculate average score" << endl;
+    cout << "4. Quit" << endl;
+    cout << "Enter your choice (1-4): ";
+    cin >> choice;
+
+    switch (choice) {
+
+    case 1:
+        addStudent(records);
+        break;
+
+    case 2:
+        displayStudents(records);
+        break;
+
+    case 3:
+        findAverage(records);
+        break;
+
+    case 4:
+        cout << "Goodbye!" << endl;
+        break;
+
+    default:
+        cout << "Invalid choice. Please enter a number from 1 to 4." << endl;
+    }
+
+} while (choice != 4);
+
+return 0;
+}
